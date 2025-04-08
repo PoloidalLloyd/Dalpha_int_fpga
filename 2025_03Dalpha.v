@@ -546,7 +546,7 @@ endgenerate
 ////////////////////////////////////////////////////////////////////////////////
 // Adding Stuff
 ////////////////////////////////////////////////////////////////////////////////
-logic [12:0] sum_value;
+logic [11:0] sum_value;
 always @(posedge fclk[0])
 begin
     sum_value <= adc_dat_in[0] + adc_dat_in[1];
@@ -555,7 +555,7 @@ end
 ////////////////////////////////////////////////////////////////////////////////
 // Subtracting Stuff
 ////////////////////////////////////////////////////////////////////////////////
-logic [12:0] minus_value;
+logic [11:0] minus_value;
 always @(posedge fclk[0])
 begin
     minus_value <= adc_dat_in[0] - adc_dat_in[1];
@@ -580,7 +580,7 @@ div_gen_0 divder (
 );
 always @(posedge adc_clk)
 begin
-    dac_dat_a <=  dac_adc_out[13:0];
+    dac_dat_a <=  dac_adc_out[11:0];
     dac_dat_b <=  sum_value;
 end
 
