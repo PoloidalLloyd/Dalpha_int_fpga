@@ -580,7 +580,7 @@ div_gen_0 divder (
 );
 always @(posedge adc_clk)
 begin
-    dac_dat_a <=  dac_adc_out[11:0];
+    dac_dat_a <=  adc_dat_in[11:0];
     dac_dat_b <=  sum_value;
 end
 
