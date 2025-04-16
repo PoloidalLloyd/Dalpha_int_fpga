@@ -552,7 +552,7 @@ endgenerate
 ////////////////////////////////////////////////////////////////////////////////
 // Adding Stuff
 ////////////////////////////////////////////////////////////////////////////////
-logic [12:0] sum_value;
+logic [13:0] sum_value;
 always @(posedge fclk[0]) begin
     sum_value <= adc_dat_in[0] + adc_dat_in[1];
 end
@@ -560,7 +560,7 @@ end
 ////////////////////////////////////////////////////////////////////////////////
 // Subtracting Stuff
 ////////////////////////////////////////////////////////////////////////////////
-logic [12:0] minus_value;
+logic [13:0] minus_value;
 always @(posedge fclk[0]) begin
     minus_value <= adc_dat_in[0] - adc_dat_in[1];
 end
@@ -568,7 +568,7 @@ end
 ////////////////////////////////////////////////////////////////////////////////
 // Dividing Stuff
 ////////////////////////////////////////////////////////////////////////////////
-logic [31:0] dac_adc_out;
+logic [13:0] dac_adc_out;
 logic dac_tvalid;
 
 div_gen_0 divder (
@@ -584,11 +584,11 @@ div_gen_0 divder (
 );
 
 ////////////////////////////////////////////////////////////////////////////////
-// DAC Output Assignment (Test Step)
+// DAC Output Assignment
 ////////////////////////////////////////////////////////////////////////////////
 always @(posedge adc_clk) begin
-    dac_dat_a <= {2'b00, adc_dat_in[0]};  // Zero-extend to 14 bits
-    dac_dat_b <= {1'b0, sum_value};       // Zero-extend to 14 bits
+    dac_dat_a <= adc_dat_in[0]; 
+    dac_dat_b <= sum_value;       
 end
 
 
@@ -618,10 +618,10 @@ logic dac_dco_bufg ;
 BUFG bufg_dac_dco    (.O (dac_dco_bufg ), .I(dac_dco_i));
 
 //always @(posedge dac_dco_bufg) begin
-always @(posedge adc_clk) begin
-  dac_dat_o[0] <= dac_dat_b ; // switch ch_b->dac_a
-  dac_dat_o[1] <= dac_dat_a ; // switch ch_a->dac_b
-end
+// always @(posedge adc_clk) begin
+//   dac_dat_o[0] <= dac_dat_b ; // switch ch_b->dac_a
+//   dac_dat_o[1] <= dac_dat_a ; // switch ch_a->dac_b
+// end
 
 ////////////////////////////////////////////////////////////////////////////////
 //  House Keeping
